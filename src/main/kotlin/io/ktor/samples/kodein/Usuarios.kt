@@ -1,6 +1,5 @@
 package io.ktor.samples.kodein
 
-
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
@@ -30,9 +29,14 @@ fun main() {
 }
 
 @Serializable
-data class Usuario(val id: Int, val nombre: String, val ciudad: String)
+data class Usuario(
+    val id: Int,
+    val nombre: String,
+    val ciudad: String,
+    val imagen: String
+)
 
-// 100 nombres únicos (puedes agregar más si lo deseas)
+// 100 nombres únicos
 val nombresUnicos = List(100) { index -> "Usuario$index" }
 
 val ciudades = listOf(
@@ -40,11 +44,15 @@ val ciudades = listOf(
     "Bilbao", "Granada", "Toledo", "Málaga", "Santander"
 )
 
-// Generar 100 usuarios únicos con nombres diferentes
+// Generar 100 usuarios únicos con imágenes de randomuser.me
 val usuarios: List<Usuario> = nombresUnicos.mapIndexed { index, nombre ->
+    val genero = if (index % 2 == 0) "men" else "women"
+    val imagenUrl = "https://randomuser.me/api/portraits/$genero/${index % 100}.jpg"
+
     Usuario(
         id = index + 1,
         nombre = nombre,
-        ciudad = ciudades.random()
+        ciudad = ciudades.random(),
+        imagen = imagenUrl
     )
 }
