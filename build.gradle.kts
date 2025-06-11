@@ -8,7 +8,7 @@ plugins {
 }
 
 application {
-    mainClass.set("io.ktor.samples.kodein.KodeinSimpleApplicationKt")
+    mainClass.set("io.ktor.samples.kodein.UsuariosKt")
 }
 
 repositories {
