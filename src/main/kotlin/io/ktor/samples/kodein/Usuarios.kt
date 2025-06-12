@@ -22,7 +22,7 @@ fun main() {
                 val size = call.request.queryParameters["size"]?.toIntOrNull() ?: 10
 
                 val pagedUsers = usuarios.chunked(size).getOrNull(page - 1) ?: emptyList()
-                call.respond(pagedUsers)
+                call.respond(UsuarioResponse(usuarios = pagedUsers))
             }
         }
     }.start(wait = true)
@@ -34,6 +34,11 @@ data class Usuario(
     val nombre: String,
     val ciudad: String,
     val imagen: String
+)
+
+@Serializable
+data class UsuarioResponse(
+    val usuarios: List<Usuario>
 )
 
 // 100 nombres únicos
